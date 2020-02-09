@@ -1,0 +1,21 @@
+<?php
+$pets=[
+	[
+		'name'=>'Scooby-Doo',
+		'picture'=>'scooby.png',
+		'type'=>'Dog',
+		'age'=>2,
+	],
+	[
+		'name'=>'Garfield',
+		'picture'=>'garfield.png',
+		'type'=>'Cat',
+		'age'=>4,
+	],
+	[
+		'name'=>'Peppa',
+		'picture'=>'peppa.jpeg',
+		'type'=>'Pig',
+		'age'=>3,
+	]
+];

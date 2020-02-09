@@ -1,60 +1,23 @@
 <?php
 if(!isset($_GET['id'])){
-	die('No id: go back to the <a href="index.php">Hotels page</a>');
+	die('No id: please return to the <a href="index.php">Pets page</a>');
 }
-
-$pets=[
-	[
-		'name'=>'Scooby-Doo',
-		'picture'=>'scooby.png',
-		'type'=>'Dog',
-		'age'=>2,
-	],
-	[
-		'name'=>'Garfield',
-		'picture'=>'garfield.png',
-		'type'=>'Cat',
-		'age'=>4,
-	],
-	[
-		'name'=>'Peppa',
-		'picture'=>'peppa.jpeg',
-		'type'=>'Pig',
-		'age'=>3,
-	]
-];
+require_once('functions.php');
+$pets=jsonToArray('data.json');
 
 if(!is_numeric($_GET['id']) || $_GET['id']<0 || $_GET['id']>=count($pets)){
-	die('Invalid: go back to the <a href="index.php">Hotels page</a>');
+	die('Invalid: please return to the <a href="index.php">Pets page</a>');
 	
 }
 
+$title=$pets[$_GET['id']]['name'];
 
+require_once('header.php');
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title><?= $pets[$_GET['id']]['name'] ?></title>
-  </head>
-  <body>
 	<div class="container">
 		<h1><?= $pets[$_GET['id']]['name'] ?></h1>
 		<img src="<?= $pets[$_GET['id']]['picture'] ?>" style="max-width:500px" />
-		<p>Type: <?= $pets[$_GET['id']]['type'] ?></p>
 		<p>Age: <?= $pets[$_GET['id']]['age'] ?></p>
 	</div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
-</html>
-
+<?php
+require_once('footer.php');
