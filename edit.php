@@ -1,14 +1,39 @@
-<?php
-	//get the index from URL
+ <?php
+
+    //get the index from URL
 	$index = $_GET['id'];
+
+	if(isset($_POST['save'])){
+		//open the json file
+		$data = file_get_contents('data.json');
+		$data = json_decode($data, true);
  
+		//data in out POST
+		$input = array(
+			'name' => $_POST['name'],
+            'picture' => $_POST['picture'],
+			'type' => $_POST['type'],
+			'age' => $_POST['age']
+		);
+ 
+		//append the input to our array
+		$data[$index] = $input;
+		//encode back to json
+		$data_array = json_encode($data, JSON_PRETTY_PRINT);
+		file_put_contents('data.json', $data_array);
+ 
+		//header('location: index.php');
+	}
+?>
+<?php
 	//get json data
 	$data = file_get_contents('data.json');
-	$data_array = json_decode($data);
+    //decode json into php array
+	$data_array = json_decode($data, true);
  
 	//assign the data to selected index
 	$row = $data_array[$index];
- 
+    print_r($row);
 ?>
 
 <!DOCTYPE html>
@@ -22,46 +47,24 @@
 	<a href="index.php">Back</a>
 	<p>
 		<label for="name">Name</label>
-		<input type="text" id="name" name="name">
+		<input type="text" id="name" name="name" value= "<?php echo $data_array[$_GET['id']]['name']?>" >
 	</p>
     	<p>
 		<label for="picture">Picture</label>
-		<input type="picture" id="picture" name="picture">
+		<input type="picture" id="picture" name="picture" value="<?php echo $data_array[$_GET['id']]['picture']?>">
 	</p>
+    
 	<p>
 		<label for="type">Type</label>
-		<input type="text" id="type" name="type">
+		<input type="text" id="type" name="type" value="<?php echo $data_array[$_GET['id']]['type']?>">
 	</p>
 	<p>
 		<label for="age">Age</label>
-		<input type="number" id="age" name="age">
+		<input type="number" id="age" name="age" value="<?php echo $data_array[$_GET['id']]['age']?>">
 	</p>
 	<p>
 	</p>
 	<input type="submit" name="save" value="Save">
 </form>
- 
-<?php
-	if(isset($_POST['save'])){
-		//open the json file
-		$data = file_get_contents('data.json');
-		$data = json_decode($data);
- 
-		//data in out POST
-		$input = array(
-			'name' => $_POST['name'],
-			'type' => $_POST['type'],
-			'age' => $_POST['age']
-		);
- 
-		//append the input to our array
-		$data_array[$index] = $input;
-		//encode back to json
-		$data = json_encode($data_array, JSON_PRETTY_PRINT);
-		file_put_contents('data.json', $data);
- 
-		header('location: index.php');
-	}
-?>
 </body>
 </html>

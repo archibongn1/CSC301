@@ -37,6 +37,7 @@
 		//data in out POST
 		$input = array(
 			'name' => $_POST['name'],
+            'picture' => $_POST['picture'],
 			'type' => $_POST['type'],
 			'age' => $_POST['age']
 		);
